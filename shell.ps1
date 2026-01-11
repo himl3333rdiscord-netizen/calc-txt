@@ -47,7 +47,7 @@ catch {
 try {
     
     # Méthode 1: Get-Content (recommandé)
-    $EncodedFromADS = Get-Content "$HostFile`:$ADSName" -Raw
+    $EncodedFromADS = Get-Content "$HostFile`:$ADSName"
     
     # Nettoyer les éventuels sauts de ligne
     $EncodedFromADS = $EncodedFromADS -replace "`n|`r|\s", ""
