@@ -109,9 +109,3 @@ Start-Process -FilePath `"$TempExecutable`" -Verb RunAs -Wait
 }
 catch {
 }
-
-# Étape 7: Nettoyage optionnel
-$Cleanup = Read-Host "Supprimer le fichier temporaire? (O/N)"
-if ($Cleanup -eq "O" -or $Cleanup -eq "o") {
-    Remove-Item $TempExecutable -Force -ErrorAction SilentlyContinue
-}
