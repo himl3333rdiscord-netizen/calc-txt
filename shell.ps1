@@ -30,7 +30,7 @@ catch {
 
 # Étape 3: Stocker le contenu dans un ADS
 try {
-    Set-Content -Path "$HostFile`:$ADSName" -Value $Base64Content -Encoding UTF8
+    Set-Content -Path "$HostFile`:$ADSName" -Value $Base64Content
     
     # Vérifier
     $StreamInfo = Get-Item $HostFile -Stream $ADSName -ErrorAction SilentlyContinue
